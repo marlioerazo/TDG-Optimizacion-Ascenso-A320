@@ -1,3 +1,38 @@
+"""
+PROYECTO: Optimización de la Trayectoria de Ascenso de Aeronaves A320
+AUTOR: Marco A. Erazo
+TRABAJO DE GRADO: Magíster en Física - Universidad de Antioquia
+
+MODULO: Análisis Numérico del Rango de la Matriz Jacobiana
+OBJETIVO: Validar formalmente la reducción de dimensionalidad del problema.
+
+DESCRIPCIÓN TÉCNICA:
+Este script implementa el 'Algorithm 1' descrito en la tesis. Su propósito es 
+demostrar que el sistema de 260 ecuaciones de igualdad (restricciones dinámicas) 
+que gobiernan el ascenso del Airbus A320 es linealmente independiente.
+
+Para ello, el código realiza lo siguiente:
+1. Definición Simbólica: Utiliza 'SymPy' para formular las ecuaciones diferenciales 
+   discretizadas del modelo físico-aeronáutico.
+2. Diferenciación Automática: Calcula la matriz Jacobiana (260x364) mediante 
+   derivadas parciales simbólicas respecto a las 7 variables de estado y control.
+3. Evaluación Numérica: Sustituye una trayectoria factible (seed) en la matriz 
+   Jacobiana para obtener una representación numérica real.
+4. Cálculo de Rango: Utiliza la descomposición en valores singulares (SVD) de NumPy 
+   para determinar el rango de la matriz.
+
+FUNDAMENTO MATEMÁTICO:
+Basado en el Teorema de la Función Implícita, si el rango de la matriz Jacobiana 
+es igual al número de restricciones (rango = 260), se confirma la existencia de 
+364 - 260 = 104 grados de libertad reales. Esto justifica matemáticamente la 
+reducción del espacio de búsqueda a 104 variables independientes (velocidades y 
+ángulos de ascenso), haciendo el problema tratable para computación cuántica.
+
+RESULTADO ESPERADO:
+- Rango del Jacobiano: 260
+- Variables independientes: 104
+"""
+
 import numpy as np
 import sympy
 
